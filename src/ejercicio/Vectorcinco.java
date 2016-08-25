@@ -5,6 +5,8 @@
  */
 package ejercicio;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author aolivero11
@@ -14,6 +16,7 @@ public class Vectorcinco extends javax.swing.JFrame {
     /**
      * Creates new form Vectorcinco
      */
+    double v[];
     public Vectorcinco() {
         initComponents();
     }
@@ -59,6 +62,12 @@ public class Vectorcinco extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Longitud: ");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, -1, -1));
+
+        txtLong.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtLongKeyTyped(evt);
+            }
+        });
         jPanel2.add(txtLong, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 80, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 200, 90));
@@ -70,26 +79,51 @@ public class Vectorcinco extends javax.swing.JFrame {
         cmdCrear.setBackground(new java.awt.Color(255, 204, 204));
         cmdCrear.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cmdCrear.setText("Crear");
+        cmdCrear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdCrearActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdCrear, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 30, 90, 30));
 
         cmdLlenadoM.setBackground(new java.awt.Color(255, 204, 204));
         cmdLlenadoM.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cmdLlenadoM.setText("Llenado Manual");
+        cmdLlenadoM.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLlenadoMActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdLlenadoM, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 130, 30));
 
         cmdLlenadoAut.setBackground(new java.awt.Color(255, 204, 204));
         cmdLlenadoAut.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cmdLlenadoAut.setText("Llenado Automatico");
+        cmdLlenadoAut.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdLlenadoAutActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdLlenadoAut, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, -1, 30));
 
         cmdMostrar.setBackground(new java.awt.Color(255, 204, 204));
         cmdMostrar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cmdMostrar.setText("Mostrar");
+        cmdMostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdMostrarActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdMostrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 90, 30));
 
         cmdBorrar.setBackground(new java.awt.Color(255, 204, 204));
         cmdBorrar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         cmdBorrar.setText("Borrar");
+        cmdBorrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmdBorrarActionPerformed(evt);
+            }
+        });
         jPanel3.add(cmdBorrar, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 190, 90, 30));
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 90, 190, 240));
@@ -121,6 +155,80 @@ public class Vectorcinco extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void txtLongKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLongKeyTyped
+        char c=evt.getKeyChar(); 
+
+          if(!Character.isDigit(c)) { 
+              getToolkit().beep(); 
+               
+              evt.consume();  
+          }
+    }//GEN-LAST:event_txtLongKeyTyped
+
+    private void cmdCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdCrearActionPerformed
+       int lon;
+        
+        if (txtLong.getText().trim().isEmpty()){
+         JOptionPane.showMessageDialog(this,"Digite por favor la longitud","Error",JOptionPane.ERROR_MESSAGE);
+         txtLong.requestFocusInWindow();
+        }
+        else if (Integer.parseInt(txtLong.getText().trim())%2!=0){
+         JOptionPane.showMessageDialog(this,"La longitud debe ser un numero par","Error",JOptionPane.ERROR_MESSAGE);
+         txtLong.requestFocusInWindow();
+        }
+        else if (Integer.parseInt(txtLong.getText().trim())==0){
+         JOptionPane.showMessageDialog(this, "No digite cero en la longitud","Error",JOptionPane.ERROR_MESSAGE);
+         txtLong.requestFocusInWindow();
+         txtLong.selectAll();
+        }
+        else{
+            lon=Integer.parseInt(txtLong.getText().trim());
+            v= new double [lon];
+            JOptionPane.showMessageDialog(this,"Vector creado exictosamente!");
+                    
+        }
+    }//GEN-LAST:event_cmdCrearActionPerformed
+
+    private void cmdLlenadoMActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLlenadoMActionPerformed
+        double n;
+        for (int i = 0; i < v.length; i++) {
+            n=Double.parseDouble(JOptionPane.showInputDialog("Digite el elemento en la posicion" +i));
+            v[i]=n;
+        }
+    }//GEN-LAST:event_cmdLlenadoMActionPerformed
+
+    private void cmdLlenadoAutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdLlenadoAutActionPerformed
+        double n;
+        for (int i = 0; i < v.length; i++) {
+            n=(int)(Math.random()* + 1);
+            n=i+1;
+            v[i]=1;
+        }
+    }//GEN-LAST:event_cmdLlenadoAutActionPerformed
+
+    private void cmdMostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdMostrarActionPerformed
+       double sum=0,prod=1;
+        for (int i = 0; i <v.length; i++) {
+          txtRes.append(v[i]+"\n");  
+        }
+        for (int i = 0; i < v.length/2; i++) {
+           prod=prod*v[i]; 
+        }
+        for (int i = v.length/2; i < v.length; i++) {
+           sum=sum+v[i];
+        }
+        JOptionPane.showMessageDialog(this,"El producto de la primera mitad del vector es:" +prod);
+        JOptionPane.showMessageDialog(this,"La suma de la otra mitad del vector es:" +sum);
+    }//GEN-LAST:event_cmdMostrarActionPerformed
+
+    private void cmdBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmdBorrarActionPerformed
+        txtLong.setText("");
+        txtRes.setText("");
+        v=null;
+        
+        txtLong.requestFocusInWindow();
+    }//GEN-LAST:event_cmdBorrarActionPerformed
 
     /**
      * @param args the command line arguments
